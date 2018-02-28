@@ -12,9 +12,18 @@ const AppQuery = gpl`
 
 class App extends Component {
   render() {
+    if (this.props.data.loading) {
+      return <p>Loading...</p>;
+    }
     return (
       <div className='App'>
-        <h1>Hello world</h1>
+        {this.props.data.animals.map((animal, index) => {
+          return (
+            <p key={index}>
+              {animal.name}
+            </p>
+          );
+        })}
       </div>
     );
   }
