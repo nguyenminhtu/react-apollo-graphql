@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
-// Some fake data
+// Dữ liệu giả
 const animals = [
   {
     name: "Dog",
@@ -13,7 +13,6 @@ const animals = [
   },
 ];
 
-// The GraphQL schema in string form
 const typeDefs = `
   type Query {
    animals: [Animal]
@@ -24,10 +23,9 @@ const typeDefs = `
   }
 `;
 
-// The resolvers
 const resolvers = {
   Query: {
-   animals: () => animals
+    animals: () => animals
   },
 };
 
@@ -36,16 +34,14 @@ const schema = makeExecutableSchema({
   resolvers,
 });
 
-// Initialize the app
 const app = express();
 
-// The GraphQL endpoint
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
-// GraphiQL, a visual editor for queries
+// GraphiQL, 1 giao diện interface của GraphQL
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
-// Start the server
+// Chạy server
 app.listen(3000, () => {
-  console.log('Go to http://localhost:3000/graphiql to run queries!');
+  console.log('Vào đường dẫn http://localhost:3000/graphiql để query thử nhé!');
 });
